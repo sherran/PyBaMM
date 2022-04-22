@@ -85,4 +85,5 @@ class MarcusHushChidsey(BaseKinetics):
         a = 1 + pybamm.sqrt(lambda_T)
         arg = (lambda_T - pybamm.sqrt(a + eta ** 2)) / (2 * pybamm.sqrt(lambda_T))
         pref = pybamm.sqrt(np.pi * lambda_T) * pybamm.tanh(eta / 2)
-        return u * j0 * pref * pybamm.erfc(arg)
+        # add eta/50 for better performance at high current
+        return u * j0 * (pref * pybamm.erfc(arg) + eta / 50)
